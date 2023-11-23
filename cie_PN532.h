@@ -113,7 +113,6 @@ class cie_PN532
   void     printHex(byte *buffer, const word length);
   bool     print_EF_SOD(word *contentLength);
   bool     parse_EF_SOD(cieBerTripleCallbackFunc callback);
-
  private:
   //fields
   cie_Nfc *_nfc;

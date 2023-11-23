@@ -20,7 +20,7 @@
 /**************************************************************************/
 #include "cie_PN532.h"
 
-#define PN532DEBUGPRINT Serial
+#define PN532DEBUGPRINT Serial0
 
 /**************************************************************************/
 /*!
@@ -108,18 +108,18 @@ bool cie_PN532::detectCard() {
 void cie_PN532::printHex(byte *buffer, const word length) {
   for (word szPos=0; szPos < length; szPos++)
   {
-    PN532DEBUGPRINT.print(F("0x"));
+    printf("0x");
     // Append leading 0 for small values
     if (buffer[szPos] <= 0xF) {
-      PN532DEBUGPRINT.print(F("0"));
+      printf("0");
     }
-    PN532DEBUGPRINT.print(buffer[szPos]&0xff, HEX);
+    printf("%x04", buffer[szPos]&0xff);
     if ((length > 1) && (szPos != length - 1))
     {
-      PN532DEBUGPRINT.print(F(" "));
+      printf(" ");
     }
   }
-  PN532DEBUGPRINT.println();
+  printf("\n");
 }
 
 /**************************************************************************/

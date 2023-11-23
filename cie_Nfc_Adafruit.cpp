@@ -36,6 +36,12 @@ cie_Nfc_Adafruit::cie_Nfc_Adafruit () : cie_Nfc_Adafruit(2, 5, 3, 4) {
 /**************************************************************************/
 cie_Nfc_Adafruit::cie_Nfc_Adafruit (byte clk, byte miso, byte mosi, byte ss) {
   _nfc = new Adafruit_PN532(clk, miso, mosi, ss);
+  if(!_nfc->getFirmwareVersion()) {
+    printf("Not connected\n");
+    ESP.restart();
+  }else {
+    printf("Connected\n");
+  };
 }
 
 /**************************************************************************/
@@ -83,7 +89,7 @@ bool cie_Nfc_Adafruit::detectCard() {
 */
 /**************************************************************************/
 bool cie_Nfc_Adafruit::sendCommand(byte *command, byte commandLength, byte *response, word *responseLength) {
-  bool success = _nfc->inDataExchange(command, commandLength, response, responseLength);
+  bool success = _nfc->inDataExchange(command, commandLength, response, (uint16_t*)responseLength);
   return success;
 }
 
